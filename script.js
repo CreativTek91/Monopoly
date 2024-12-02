@@ -6,6 +6,7 @@ const diceResult = document.getElementById("diceResult");
 const playerInfo = document.getElementById("playerInfo");
 const playerToken = document.getElementById("player");
 
+
 const totalFields = 40; // Anzahl der Spielfelder
 const players = [
   { id: 1, money: 1500, position: 0, properties: [] },
@@ -24,16 +25,37 @@ const eventCards = [
   { text: "Gehe 3 Felder zurück", action: (player) => movePlayer(-3) },
   { text: "Erhalte 200$", action: (player) => (player.money += 200) },
   { text: "Zahle 100$", action: (player) => (player.money -= 100) },
-  { text: "Gehe direkt ins Gefängnis", action: (player) => (player.position = 10) },
+  {
+    text: "Gehe direkt ins Gefängnis",
+    action: (player) => (player.position = 10),
+  },
 ];
 
 const nonPurchasableFields = [1, 11, 21, 31];
 
+// Funktion, die überprüft, ob ein Feld kaufbar ist
+function isPurchasable(fieldIndex) {
+  return !nonPurchasableFields.includes(fieldIndex + 1);
+}
+
 // Würfeln-Funktion
 function rollDice() {
-  const roll = Math.floor(Math.random() * 6) + 1;
-  diceResult.textContent = `Würfel: ${roll}`;
-  movePlayer(roll);
+  const dice1 = Math.floor(Math.random() * 6) + 1;
+  const dice2 = Math.floor(Math.random() * 6) + 1;
+  const totalRoll = dice1 + dice2;
+
+  const diceResult = document.getElementById("diceResult");
+  diceResult.textContent = `Würfel 1: ${dice1}, Würfel 2: ${dice2}, Gesamt: ${totalRoll}`;
+
+  // Beispiel: Weitere Bearbeitungen des diceResult-Elements
+  diceResult.style.fontSize = "24px"; // Schriftgröße auf 24px setzen
+  diceResult.style.color = "blue"; // Textfarbe auf blau setzen
+  diceResult.style.fontWeight = "bold"; // Text fett darstellen
+  diceResult.style.backgroundColor = "lightgreen"; // Hintergrundfarbe auf hellgrün setzen
+  diceResult.style.padding = "10px"; // Innenabstand auf 10px setzen
+  diceResult.style.border = "2px solid black"; // Rahmen hinzufügen
+  diceResult.style.borderRadius = "10px"; // Abgerundete Ecken
+  movePlayer(totalRoll);
 }
 // Gefängnislogik hinzufügen
 function handleJail(player) {
@@ -106,8 +128,26 @@ function movePlayer(steps) {
     players[field.owner - 1].money += rent;
   }
 
-  updatePlayerInfo(); // Spielerinformationen aktualisieren
-  switchPlayer(); // Spieler wechseln
+  // Nächster Spieler
+  currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+  updatePlayerInfo();
+}
+function showPopup(message) {
+  const popup = document.getElementById('customPopup');
+  const popupMessage = document.getElementById('popupMessage');
+  popupMessage.textContent = message;
+  popup.style.display = 'block';
+
+  const closeBtn = document.querySelector('.popup .close');
+  closeBtn.onclick = function() {
+      popup.style.display = 'none';
+  };
+
+  window.onclick = function(event) {
+      if (event.target === popup) {
+          popup.style.display = 'none';
+      }
+  };
 }
 
 // Spielfigur bewegen
@@ -139,9 +179,9 @@ function buildHouse() {
 
 // Funktion zum Erstellen eines farbigen Punktes
 function createPlayerDot(playerId) {
-  const dot = document.createElement('div');
-  dot.classList.add('player-dot');
-  dot.style.backgroundColor = playerId === 1 ? 'red' : 'blue'; // Beispiel: Spieler 1 = rot, Spieler 2 = blau
+  const dot = document.createElement("div");
+  dot.classList.add("player-dot");
+  dot.style.backgroundColor = playerId === 1 ? "purple" : "orange"; // Beispiel: Spieler 1 = purple, Spieler 2 = orange
   return dot;
 }
 
@@ -157,13 +197,13 @@ function updatePlayerInfo() {
   playerInfo.textContent = players
     .map((p) => `Spieler ${p.id}: ${p.money}$`)
     .join(" | ");
-    playerInfo.style.fontSize = '20px'; // Beispiel: Schriftgröße auf 20px setzen
-    playerInfo.style.background = 'linear-gradient(to right, purple, orange)'; 
-    playerInfo.style.border = '2px solid black';
-    playerInfo.style.borderRadius = '8px'
-    playerInfo.style.boxShadow = '3px 3px 5px rgba(0, 0, 0, 0.5)'; // Beispiel: Box-Shadow hinzufügen
-    playerInfo.style.fontWeight = 'bold'; // Beispiel: Text fett darstellen
-    playerInfo.style.margin = '10px 0'; // Beispiel: Abstand nach oben und unten
+  playerInfo.style.fontSize = "20px"; // Beispiel: Schriftgröße auf 20px setzen
+  playerInfo.style.background = "linear-gradient(to right, purple, orange)";
+  playerInfo.style.border = "2px solid black";
+  playerInfo.style.borderRadius = "8px";
+  playerInfo.style.boxShadow = "3px 3px 5px rgba(0, 0, 0, 0.5)"; // Beispiel: Box-Shadow hinzufügen
+  playerInfo.style.fontWeight = "bold"; // Beispiel: Text fett darstellen
+  playerInfo.style.margin = "10px 0"; // Beispiel: Abstand nach oben und unten
 }
 
 // Spieler wechseln

@@ -41,6 +41,9 @@ body {
     background-color: lightgray;
     position: absolute;
 }
+p {
+    font-size: 7px;
+}
 /* Sections für die Zellen 2-10 nach oben */
 .cell:nth-child(n+2):nth-child(-n+10) section {
     top: 0;
@@ -181,6 +184,48 @@ body {
 .cell:nth-child(1) {
     width: 80px; /* Beispiel: Breite auf 80px setzen */
 }
+/* Hintergrundbild für die Zellen 3, 18, 28 und 34 festlegen */
+.cell:nth-child(3),
+.cell:nth-child(18),
+.cell:nth-child(28),
+.cell:nth-child(34) {
+    background-image: url('./assets/chest-removebg-preview.png'); /* Pfad zu deinem Bild */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+/* Hintergrundbild für die Zellen 8, 13, 23 und 37 festlegen */
+.cell:nth-child(8),
+.cell:nth-child(13),
+.cell:nth-child(23),
+.cell:nth-child(37) {
+    background-image: url('./assets/_-removebg-preview.png'); /* Pfad zu deinem Bild */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+/* Hintergrundbild für die Zellen 4 und 39 festlegen */
+.cell:nth-child(5),
+.cell:nth-child(39) {
+    background-image: url('./assets/ring-removebg-preview.png'); /* Pfad zu deinem Bild */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+/* Hintergrundbild für die Zellen 5 und 26 festlegen */
+.cell:nth-child(6),
+.cell:nth-child(26) {
+    background-image: url('./assets/bahnhofnormal.png'); /* Pfad zu deinem Bild */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.cell:nth-child(16) {
+    background-image: url('./assets/bahnhofleft-removebg-preview.png'); /* Pfad zu deinem Bild */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 /* Zentrale div */
 .center {
     grid-area: 2 / 2 / 11 / 11;
@@ -198,11 +243,59 @@ body {
     opacity: 0;
     animation: fadeIn 2s forwards;
 }
+#diceResult {
+    font-size: 20px; /* Beispiel: Schriftgröße auf 20px setzen */
+    color: red; /* Beispiel: Textfarbe auf rot setzen */
+    font-weight: bold; /* Beispiel: Text fett darstellen */
+    margin: 10px 0; /* Beispiel: Abstand nach oben und unten */
+    padding: 5px; /* Beispiel: Innenabstand */
+    border: 2px solid black; /* Beispiel: Rahmen hinzufügen */
+    border-radius: 5px; /* Beispiel: Abgerundete Ecken */
+    background-color: lightyellow; /* Beispiel: Hintergrundfarbe */
+}
 
 @keyframes fadeIn {
     to {
         opacity: 1;
     }
+}
+
+/* Popup-Styles */
+.popup {
+    display: none; /* Versteckt das Popup standardmäßig */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Halbtransparenter Hintergrund */
+}
+
+.popup-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 300px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 
