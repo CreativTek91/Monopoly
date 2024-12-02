@@ -95,11 +95,39 @@ body {
 }
 
 /* Positioniere die Zellen entlang des Randes */
+.cell:nth-child(1) { grid-area: 11 / 11 / 12 / 12;
+    background-image: url(./assets/los.feld.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; }
+.cell:nth-child(2) { grid-area: 11 / 10 / 12 / 11; }
+.cell:nth-child(3) { grid-area: 11 / 9 / 12 / 10; }
+.cell:nth-child(4) { grid-area: 11 / 8 / 12 / 9; }
+.cell:nth-child(5) { grid-area: 11 / 7 / 12 / 8; }
+.cell:nth-child(6) { grid-area: 11 / 6 / 12 / 7; }
+.cell:nth-child(7) { grid-area: 11 / 5 / 12 / 6; }
+.cell:nth-child(8) { grid-area: 11 / 4 / 12 / 5; }
+.cell:nth-child(9) { grid-area: 11 / 3 / 12 / 4; }
+.cell:nth-child(10) { grid-area: 11 / 2 / 12 / 3; }
+.cell:nth-child(11) { grid-area: 11 / 1 / 12 / 2;
+    background-image: url(./assets/besuchjail.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; }
+.cell:nth-child(12) { grid-area: 10 / 1 / 11 / 2; }
+.cell:nth-child(13) { grid-area: 9 / 1 / 10 / 2; }
+.cell:nth-child(14) { grid-area: 8 / 1 / 9 / 2; }
+.cell:nth-child(15) { grid-area: 7 / 1 / 8 / 2; }
+.cell:nth-child(16) { grid-area: 6 / 1 / 7 / 2; }
+.cell:nth-child(17) { grid-area: 5 / 1 / 6 / 2; }
+.cell:nth-child(18) { grid-area: 4 / 1 / 5 / 2; }
+.cell:nth-child(19) { grid-area: 3 / 1 / 4 / 2; }
+.cell:nth-child(20) { grid-area: 2 / 1 / 3 / 2; }
 .cell:nth-child(21) { grid-area: 1 / 1 / 2 / 2;
     background-image: url(./assets/freiparken.jpg);
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;}
+    background-repeat: no-repeat; }
 .cell:nth-child(22) { grid-area: 1 / 2 / 2 / 3; }
 .cell:nth-child(23) { grid-area: 1 / 3 / 2 / 4; }
 .cell:nth-child(24) { grid-area: 1 / 4 / 2 / 5; }
@@ -123,36 +151,8 @@ body {
 .cell:nth-child(38) { grid-area: 8 / 11 / 9 / 12; }
 .cell:nth-child(39) { grid-area: 9 / 11 / 10 / 12; }
 .cell:nth-child(40) { grid-area: 10 / 11 / 11 / 12; }
-.cell:nth-child(1) { 
-    grid-area: 11 / 11 / 12 / 12;
-    background-image: url(./assets/los.feld.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
- }
-.cell:nth-child(2) { grid-area: 11 / 10 / 12 / 11;}
-.cell:nth-child(3) { grid-area: 11 / 9 / 12 / 10; }
-.cell:nth-child(4) { grid-area: 11 / 8 / 12 / 9; }
-.cell:nth-child(5) { grid-area: 11 / 7 / 12 / 8; }
-.cell:nth-child(6) { grid-area: 11 / 6 / 12 / 7; }
-.cell:nth-child(7) { grid-area: 11 / 5 / 12 / 6; }
-.cell:nth-child(8) { grid-area: 11 / 4 / 12 / 5; }
-.cell:nth-child(9) { grid-area: 11 / 3 / 12 / 4; }
-.cell:nth-child(10) { grid-area: 11 / 2 / 12 / 3; }
-.cell:nth-child(11) { grid-area: 11 / 1 / 12 / 2; 
-    background-image: url(./assets/besuchjail.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;}
-.cell:nth-child(12) { grid-area: 10 / 1 / 11 / 2; }
-.cell:nth-child(13) { grid-area: 9 / 1 / 10 / 2; }
-.cell:nth-child(14) { grid-area: 8 / 1 / 9 / 2; }
-.cell:nth-child(15) { grid-area: 7 / 1 / 8 / 2; }
-.cell:nth-child(16) { grid-area: 6 / 1 / 7 / 2; }
-.cell:nth-child(17) { grid-area: 5 / 1 / 6 / 2; }
-.cell:nth-child(18) { grid-area: 4 / 1 / 5 / 2; }
-.cell:nth-child(19) { grid-area: 3 / 1 / 4 / 2; }
-.cell:nth-child(20) { grid-area: 2 / 1 / 3 / 2; }
+
+
 
 .cell:nth-child(n+1):nth-child(-n+11) {
     height: 80px; /* Beispiel: Höhe auf 80px setzen */
@@ -204,4 +204,5 @@ body {
         opacity: 1;
     }
 }
+
 
