@@ -1,0 +1,207 @@
+/* Hintergrundbild für die Webseite */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url(./assets/2x1_Monopoly_image1600w.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Styling für das Spielfeld */
+#board {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    grid-template-rows: repeat(11, 1fr);
+    width: 600px;
+    height: 600px;
+    position: relative;
+    margin-top: 200px;
+}
+
+.cell {
+    border: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    background-color: #f4f4f4;
+    position: relative;
+}
+.cell section {
+    width: 100%;
+    height: 20%;
+    border: 1px solid black;
+    background-color: lightgray;
+    position: absolute;
+}
+/* Sections für die Zellen 2-10 nach oben */
+.cell:nth-child(n+2):nth-child(-n+10) section {
+    top: 0;
+}
+
+/* Sections für die Zellen 12-20 nach rechts */
+.cell:nth-child(n+12):nth-child(-n+20) section {
+    right: 0;
+    height: 100%;
+    width: 20%;
+}
+
+/* Sections für die Zellen 22-30 nach unten */
+.cell:nth-child(n+22):nth-child(-n+30) section {
+    bottom: 0;
+}
+
+/* Sections für die Zellen 32-40 nach links */
+.cell:nth-child(n+32):nth-child(-n+40) section {
+    left: 0;
+    height: 100%;
+    width: 20%;
+}
+.player {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-image: url(./assets/hut-removebg-preview.png); /* Pfad zu deinem Bild */
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.player-dot {
+    width: 20px; /* Breite des Punktes */
+    height: 20px; /* Höhe des Punktes */
+    border-radius: 50%; /* Runde Form */
+    display: inline-block;
+    position: absolute;
+    bottom: 15px; /* Abstand zum oberen Rand */
+    right: 11px; /* Abstand zum rechten Rand */
+}
+
+
+.cell.event {
+    background-color: #ffe4b5; /* Ereignisfelder farblich hervorheben */
+}
+
+.cell .section {
+    border-top: 1px solid #ccc;
+    width: 100%;
+    text-align: center;
+    padding: 2px 0;
+}
+
+/* Positioniere die Zellen entlang des Randes */
+.cell:nth-child(21) { grid-area: 1 / 1 / 2 / 2;
+    background-image: url(./assets/freiparken.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;}
+.cell:nth-child(22) { grid-area: 1 / 2 / 2 / 3; }
+.cell:nth-child(23) { grid-area: 1 / 3 / 2 / 4; }
+.cell:nth-child(24) { grid-area: 1 / 4 / 2 / 5; }
+.cell:nth-child(25) { grid-area: 1 / 5 / 2 / 6; }
+.cell:nth-child(26) { grid-area: 1 / 6 / 2 / 7; }
+.cell:nth-child(27) { grid-area: 1 / 7 / 2 / 8; }
+.cell:nth-child(28) { grid-area: 1 / 8 / 2 / 9; }
+.cell:nth-child(29) { grid-area: 1 / 9 / 2 / 10; }
+.cell:nth-child(30) { grid-area: 1 / 10 / 2 / 11; }
+.cell:nth-child(31) { grid-area: 1 / 11 / 2 / 12;
+    background-image: url(./assets/jail.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; }
+.cell:nth-child(32) { grid-area: 2 / 11 / 3 / 12; }
+.cell:nth-child(33) { grid-area: 3 / 11 / 4 / 12; }
+.cell:nth-child(34) { grid-area: 4 / 11 / 5 / 12; }
+.cell:nth-child(35) { grid-area: 5 / 11 / 6 / 12; }
+.cell:nth-child(36) { grid-area: 6 / 11 / 7 / 12; }
+.cell:nth-child(37) { grid-area: 7 / 11 / 8 / 12; }
+.cell:nth-child(38) { grid-area: 8 / 11 / 9 / 12; }
+.cell:nth-child(39) { grid-area: 9 / 11 / 10 / 12; }
+.cell:nth-child(40) { grid-area: 10 / 11 / 11 / 12; }
+.cell:nth-child(1) { 
+    grid-area: 11 / 11 / 12 / 12;
+    background-image: url(./assets/los.feld.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+ }
+.cell:nth-child(2) { grid-area: 11 / 10 / 12 / 11;}
+.cell:nth-child(3) { grid-area: 11 / 9 / 12 / 10; }
+.cell:nth-child(4) { grid-area: 11 / 8 / 12 / 9; }
+.cell:nth-child(5) { grid-area: 11 / 7 / 12 / 8; }
+.cell:nth-child(6) { grid-area: 11 / 6 / 12 / 7; }
+.cell:nth-child(7) { grid-area: 11 / 5 / 12 / 6; }
+.cell:nth-child(8) { grid-area: 11 / 4 / 12 / 5; }
+.cell:nth-child(9) { grid-area: 11 / 3 / 12 / 4; }
+.cell:nth-child(10) { grid-area: 11 / 2 / 12 / 3; }
+.cell:nth-child(11) { grid-area: 11 / 1 / 12 / 2; 
+    background-image: url(./assets/besuchjail.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;}
+.cell:nth-child(12) { grid-area: 10 / 1 / 11 / 2; }
+.cell:nth-child(13) { grid-area: 9 / 1 / 10 / 2; }
+.cell:nth-child(14) { grid-area: 8 / 1 / 9 / 2; }
+.cell:nth-child(15) { grid-area: 7 / 1 / 8 / 2; }
+.cell:nth-child(16) { grid-area: 6 / 1 / 7 / 2; }
+.cell:nth-child(17) { grid-area: 5 / 1 / 6 / 2; }
+.cell:nth-child(18) { grid-area: 4 / 1 / 5 / 2; }
+.cell:nth-child(19) { grid-area: 3 / 1 / 4 / 2; }
+.cell:nth-child(20) { grid-area: 2 / 1 / 3 / 2; }
+
+.cell:nth-child(n+1):nth-child(-n+11) {
+    height: 80px; /* Beispiel: Höhe auf 80px setzen */
+}
+/* Höhe für die Zellen von 21 bis 31 festlegen */
+.cell:nth-child(n+21):nth-child(-n+31) {
+    height: 80px; /* Beispiel: Höhe auf 80px setzen */
+}
+
+/* Breite für die Zellen von 11 bis 21 festlegen */
+.cell:nth-child(n+11):nth-child(-n+21) {
+    width: 80px; /* Beispiel: Breite auf 80px setzen */
+}
+
+/* Breite für die Zellen 31, 32, 33, 34, 35, 36, 37, 38, 39, 40 und 1 festlegen */
+.cell:nth-child(31),
+.cell:nth-child(32),
+.cell:nth-child(33),
+.cell:nth-child(34),
+.cell:nth-child(35),
+.cell:nth-child(36),
+.cell:nth-child(37),
+.cell:nth-child(38),
+.cell:nth-child(39),
+.cell:nth-child(40),
+.cell:nth-child(1) {
+    width: 80px; /* Beispiel: Breite auf 80px setzen */
+}
+/* Zentrale div */
+.center {
+    grid-area: 2 / 2 / 11 / 11;
+    background-color: blue;
+    border: 2px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    animation: fadeIn 2s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
