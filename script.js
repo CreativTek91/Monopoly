@@ -28,8 +28,6 @@ const eventCards = [
   {text: "Gehe direkt ins Gefängnis",action: (player) => (player.position = 10),
   },
 ];
-document.getElementById('rollDice').addEventListener('click', rollDice);
-document.getElementById('buildHouse').addEventListener('click', buildHouse);
 
 
 // Würfeln-Funktion
@@ -67,13 +65,44 @@ function animateDice(dice1, dice2) {
       dice2Element.style.animation = '';
   }, 1000);
 }
+
+// Funktion zum Kaufen eines Feldes
+function buyProperty(player) {
+  const currentField = fields[player.position];
+  if (isPurchasable(player.position) && currentField.owner === null) {
+    if (player.money >= currentField.basePrice) {
+      player.money -= currentField.basePrice;
+      currentField.owner = player.id;
+      alert(`Feld gekauft!`);
+    } else {
+      alert("Nicht genug Geld!");
+    }
+  } else {
+    alert("Feld nicht kaufbar!");
+  }
+}
+
+// Funktion zum Aktualisieren der Spielerposition
+function updatePlayerPosition(player) {
+  const allCells = document.querySelectorAll('.cell');
+  const currentCell = allCells[player.position];
+  const token = document.getElementById(`player${player.id}`);
+
+  if (currentCell) {
+    const rect = currentCell.getBoundingClientRect();
+    token.style.top = `${rect.top + window.scrollY + 5}px`;
+    token.style.left = `${rect.left + window.scrollX + 5}px`;
+  }
+}
+
 // Gefängnislogik hinzufügen
 function handleJail(player) {
   alert("Du bist im Gefängnis!");
   player.position = 10; // Auf Feld 11 (Besuch im Gefängnis) setzen
+  updatePlayerPosition(player); // Spielerposition aktualisieren
   updatePlayerInfo();
-  rollDiceButton.disabled = true; // Würfeln deaktivieren
-  buildHouseButton.disabled = true; // Hausbauen deaktivieren
+  document.getElementById('rollDice').disabled = true; // Würfeln deaktivieren
+  document.getElementById('buildHouse').disabled = true; // Hausbauen deaktivieren
 
   // Spieler kann sich freikaufen oder versuchen, einen Pasch zu würfeln
   const outOfJail = setInterval(() => {
@@ -82,8 +111,8 @@ function handleJail(player) {
       const roll2 = Math.floor(Math.random() * 6) + 1;
       if (roll1 === roll2) {
         alert("Du hast einen Pasch gewürfelt und bist frei!");
-        rollDiceButton.disabled = false;
-        buildHouseButton.disabled = false;
+        document.getElementById('rollDice').disabled = false;
+        document.getElementById('buildHouse').disabled = false;
         clearInterval(outOfJail);
       } else {
         alert("Kein Pasch! Du bleibst im Gefängnis.");
@@ -92,8 +121,8 @@ function handleJail(player) {
       if (player.money >= 50) {
         alert("50$ bezahlt, du bist frei!");
         player.money -= 50;
-        rollDiceButton.disabled = false;
-        buildHouseButton.disabled = false;
+        document.getElementById('rollDice').disabled = false;
+        document.getElementById('buildHouse').disabled = false;
         updatePlayerInfo();
         clearInterval(outOfJail);
       } else {
@@ -103,11 +132,22 @@ function handleJail(player) {
   }, 1000);
 }
 
-// Spieler bewegen
 function movePlayer(steps) {
   const player = players[currentPlayerIndex];
   player.position = (player.position + steps + totalFields) % totalFields; // Neue Position berechnen
   const field = fields[player.position]; // Aktuelles Feld
+
+  // Überprüfen, ob der Spieler auf Zelle 31 landet
+  if (player.position === 30) { // Zelle 31 hat den Index 30 (0-basiert)
+    alert("Du bist auf Zelle 31 gelandet und ziehst auf Zelle 11!");
+    player.position = 10; // Zelle 11 hat den Index 10 (0-basiert)
+  }
+
+  // Überprüfen, ob der Spieler ins Gefängnis muss
+  if (player.position === 30) { // Beispiel: Zelle 31 schickt den Spieler ins Gefängnis
+    handleJail(player);
+    return; // Beende die Funktion, da der Spieler ins Gefängnis geht
+  }
 
   // Spielfigur bewegen
   moveTokenToField(player.position);
@@ -185,28 +225,33 @@ function updateField(position, text) {
   field.appendChild(dot);
 }
 
+// Funktion zum Anwenden von Stilen auf das Spielerinfo-Element
+function applyPlayerInfoStyles(element) {
+  element.style.fontSize = "20px"; // Beispiel: Schriftgröße auf 20px setzen
+  element.style.background = "linear-gradient(to right, purple, orange)";
+  element.style.border = "2px solid black";
+  element.style.borderRadius = "8px";
+  element.style.boxShadow = "3px 3px 5px rgba(0, 0, 0, 0.5)"; // Beispiel: Box-Shadow hinzufügen
+  element.style.fontWeight = "bold"; // Beispiel: Text fett darstellen
+  element.style.margin = "10px 0"; // Beispiel: Abstand nach oben und unten
+}
+
 // Spielerinformationen anzeigen
 function updatePlayerInfo() {
   playerInfo.textContent = players
     .map((p) => `Spieler ${p.id}: ${p.money}$`)
     .join(" | ");
-  playerInfo.style.fontSize = "20px"; // Beispiel: Schriftgröße auf 20px setzen
-  playerInfo.style.background = "linear-gradient(to right, purple, orange)";
-  playerInfo.style.border = "2px solid black";
-  playerInfo.style.borderRadius = "8px";
-  playerInfo.style.boxShadow = "3px 3px 5px rgba(0, 0, 0, 0.5)"; // Beispiel: Box-Shadow hinzufügen
-  playerInfo.style.fontWeight = "bold"; // Beispiel: Text fett darstellen
-  playerInfo.style.margin = "10px 0"; // Beispiel: Abstand nach oben und unten
+  applyPlayerInfoStyles(playerInfo);
 }
-
 // Spieler wechseln
 function switchPlayer() {
   currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
 }
 
 // Event Listener
-rollDiceButton.addEventListener("click", rollDice);
-buildHouseButton.addEventListener("click", buildHouse);
+document.getElementById('rollDice').addEventListener('click', rollDice);
+document.getElementById('buildHouse').addEventListener('click', buildHouse);
+
 
 // Spielerinfo initialisieren
 updatePlayerInfo();
