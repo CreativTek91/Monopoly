@@ -69,20 +69,39 @@ p {
 }
 .player {
     position: absolute;
-    width: 50px;
-    height: 50px;
+    width: 50px; /* Ausgangsbreite der Spielfigur */
+    height: 50px; /* Ausgangshöhe der Spielfigur */
     background-image: url(./assets/hut-removebg-preview.png); /* Pfad zu deinem Bild */
     background-size: cover;
     background-repeat: no-repeat;
+    animation: pulse 1.5s infinite; /* Animation anwenden */
 }
+
 .player-dot {
     width: 20px; /* Breite des Punktes */
-    height: 20px; /* Höhe des Punktes */
+    height: 10px; /* Höhe des Punktes */
     border-radius: 50%; /* Runde Form */
     display: inline-block;
     position: absolute;
-    bottom: 15px; /* Abstand zum oberen Rand */
+    bottom: 15px; /* Abstand zum unteren Rand */
     right: 11px; /* Abstand zum rechten Rand */
+    background-color: red; /* Beispiel: Hintergrundfarbe */
+  
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 
@@ -243,6 +262,52 @@ p {
     opacity: 0;
     animation: fadeIn 2s forwards;
 }
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Würfel-Styles */
+.dice {
+    position: absolute;
+    font-size: 150px;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
+
+@keyframes throwDice {
+    0% {
+        top: 0;
+        left: 50%;
+        opacity: 1;
+    }
+    100% {
+        top: 80vh; /* Fällt bis 80% der Viewport-Höhe */
+        left: calc(50% + var(--dice-offset, 0px));
+        opacity: 1;
+    }
+}
+.game-button {
+    font-size: 16px; /* Beispiel: Schriftgröße */
+    color: white; /* Beispiel: Textfarbe */
+    background-color: #4CAF50; /* Beispiel: Hintergrundfarbe */
+    border: none; /* Beispiel: Kein Rahmen */
+    padding: 10px 20px; /* Beispiel: Innenabstand */
+    text-align: center; /* Beispiel: Textausrichtung */
+    text-decoration: none; /* Beispiel: Kein Textdekor */
+    display: inline-block; /* Beispiel: Inline-Block-Element */
+    margin: 4px 2px; /* Beispiel: Außenabstand */
+    cursor: pointer; /* Beispiel: Mauszeiger */
+    border-radius: 12px; /* Beispiel: Abgerundete Ecken */
+    transition: background-color 0.3s; /* Beispiel: Übergangseffekt */
+  }
+  
+  .game-button:hover {
+    background-color: #45a049; /* Beispiel: Hintergrundfarbe beim Hover */
+  }
 #diceResult {
     font-size: 20px; /* Beispiel: Schriftgröße auf 20px setzen */
     color: red; /* Beispiel: Textfarbe auf rot setzen */
@@ -260,42 +325,8 @@ p {
     }
 }
 
-/* Popup-Styles */
-.popup {
-    display: none; /* Versteckt das Popup standardmäßig */
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4); /* Halbtransparenter Hintergrund */
-}
 
-.popup-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 300px;
-    text-align: center;
-    border-radius: 10px;
-}
 
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
 
 

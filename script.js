@@ -25,18 +25,12 @@ const eventCards = [
   { text: "Gehe 3 Felder zurück", action: (player) => movePlayer(-3) },
   { text: "Erhalte 200$", action: (player) => (player.money += 200) },
   { text: "Zahle 100$", action: (player) => (player.money -= 100) },
-  {
-    text: "Gehe direkt ins Gefängnis",
-    action: (player) => (player.position = 10),
+  {text: "Gehe direkt ins Gefängnis",action: (player) => (player.position = 10),
   },
 ];
+document.getElementById('rollDice').addEventListener('click', rollDice);
+document.getElementById('buildHouse').addEventListener('click', buildHouse);
 
-const nonPurchasableFields = [1, 11, 21, 31];
-
-// Funktion, die überprüft, ob ein Feld kaufbar ist
-function isPurchasable(fieldIndex) {
-  return !nonPurchasableFields.includes(fieldIndex + 1);
-}
 
 // Würfeln-Funktion
 function rollDice() {
@@ -47,7 +41,7 @@ function rollDice() {
   const diceResult = document.getElementById("diceResult");
   diceResult.textContent = `Würfel 1: ${dice1}, Würfel 2: ${dice2}, Gesamt: ${totalRoll}`;
 
-  // Beispiel: Weitere Bearbeitungen des diceResult-Elements
+  // // Beispiel: Weitere Bearbeitungen des diceResult-Elements
   diceResult.style.fontSize = "24px"; // Schriftgröße auf 24px setzen
   diceResult.style.color = "blue"; // Textfarbe auf blau setzen
   diceResult.style.fontWeight = "bold"; // Text fett darstellen
@@ -56,6 +50,22 @@ function rollDice() {
   diceResult.style.border = "2px solid black"; // Rahmen hinzufügen
   diceResult.style.borderRadius = "10px"; // Abgerundete Ecken
   movePlayer(totalRoll);
+  animateDice(dice1, dice2);
+}
+function animateDice(dice1, dice2) {
+  const dice1Element = document.getElementById('dice1');
+  const dice2Element = document.getElementById('dice2');
+
+  dice1Element.style.setProperty('--dice-offset', '-50px');
+  dice2Element.style.setProperty('--dice-offset', '50px');
+
+  dice1Element.style.animation = 'throwDice 1s forwards';
+  dice2Element.style.animation = 'throwDice 1s forwards';
+
+  setTimeout(() => {
+      dice1Element.style.animation = '';
+      dice2Element.style.animation = '';
+  }, 1000);
 }
 // Gefängnislogik hinzufügen
 function handleJail(player) {
@@ -131,23 +141,6 @@ function movePlayer(steps) {
   // Nächster Spieler
   currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
   updatePlayerInfo();
-}
-function showPopup(message) {
-  const popup = document.getElementById('customPopup');
-  const popupMessage = document.getElementById('popupMessage');
-  popupMessage.textContent = message;
-  popup.style.display = 'block';
-
-  const closeBtn = document.querySelector('.popup .close');
-  closeBtn.onclick = function() {
-      popup.style.display = 'none';
-  };
-
-  window.onclick = function(event) {
-      if (event.target === popup) {
-          popup.style.display = 'none';
-      }
-  };
 }
 
 // Spielfigur bewegen
