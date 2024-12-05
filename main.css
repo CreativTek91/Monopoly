@@ -44,29 +44,6 @@ body {
 p {
     font-size: 7px;
 }
-/* Sections für die Zellen 2-10 nach oben */
-.cell:nth-child(n+2):nth-child(-n+10) section {
-    top: 0;
-}
-
-/* Sections für die Zellen 12-20 nach rechts */
-.cell:nth-child(n+12):nth-child(-n+20) section {
-    right: 0;
-    height: 100%;
-    width: 20%;
-}
-
-/* Sections für die Zellen 22-30 nach unten */
-.cell:nth-child(n+22):nth-child(-n+30) section {
-    bottom: 0;
-}
-
-/* Sections für die Zellen 32-40 nach links */
-.cell:nth-child(n+32):nth-child(-n+40) section {
-    left: 0;
-    height: 100%;
-    width: 20%;
-}
 .player {
     position: absolute;
     width: 50px; /* Ausgangsbreite der Spielfigur */
@@ -103,6 +80,81 @@ p {
         opacity: 1;
     }
 }
+/* Zentrale div */
+.center {
+    grid-area: 2 / 2 / 11 / 11;
+    background-color: blue;
+    border: 2px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    animation: fadeIn 2s forwards;
+}
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Würfel-Styles */
+.dice {
+    position: absolute;
+    font-size: 150px;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
+
+@keyframes throwDice {
+    0% {
+        top: 0;
+        left: 50%;
+        opacity: 1;
+    }
+    100% {
+        top: 90vh; /* Fällt bis 80% der Viewport-Höhe */
+        left: calc(50% + var(--dice-offset, 0px));
+        opacity: 1;
+    }
+}
+
+.game-button {
+    font-size: 16px; /* Beispiel: Schriftgröße */
+    color: white; /* Beispiel: Textfarbe */
+    background-color: #4CAF50; /* Beispiel: Hintergrundfarbe */
+    border: none; /* Beispiel: Kein Rahmen */
+    padding: 10px 20px; /* Beispiel: Innenabstand */
+    text-align: center; /* Beispiel: Textausrichtung */
+    text-decoration: none; /* Beispiel: Kein Textdekor */
+    display: inline-block; /* Beispiel: Inline-Block-Element */
+    margin: 4px 2px; /* Beispiel: Außenabstand */
+    cursor: pointer; /* Beispiel: Mauszeiger */
+    border-radius: 12px; /* Beispiel: Abgerundete Ecken */
+    transition: background-color 0.3s; /* Beispiel: Übergangseffekt */
+  }
+  
+  .game-button:hover {
+    background-color: #45a049; /* Beispiel: Hintergrundfarbe beim Hover */
+  }
+#diceResult {
+    font-size: 20px; /* Beispiel: Schriftgröße auf 20px setzen */
+    color: rgb(0, 255, 149); /* Beispiel: Textfarbe auf rot setzen */
+    font-weight: bold; /* Beispiel: Text fett darstellen */
+    margin: 10px 0; /* Beispiel: Abstand nach oben und unten */
+    padding: 5px; /* Beispiel: Innenabstand */
+    border: 2px solid black; /* Beispiel: Rahmen hinzufügen */
+    border-radius: 5px; /* Beispiel: Abgerundete Ecken */
+    background-color: lightyellow; /* Beispiel: Hintergrundfarbe */
+}
+
 
 
 .cell.event {
@@ -114,6 +166,29 @@ p {
     width: 100%;
     text-align: center;
     padding: 2px 0;
+}
+/* Sections für die Zellen 2-10 nach oben */
+.cell:nth-child(n+2):nth-child(-n+10) section {
+  top: 0;
+}
+
+/* Sections für die Zellen 12-20 nach rechts */
+.cell:nth-child(n+12):nth-child(-n+20) section {
+  right: 0;
+  height: 100%;
+  width: 20%;
+}
+
+/* Sections für die Zellen 22-30 nach unten */
+.cell:nth-child(n+22):nth-child(-n+30) section {
+  bottom: 0;
+}
+
+/* Sections für die Zellen 32-40 nach links */
+.cell:nth-child(n+32):nth-child(-n+40) section {
+  left: 0;
+  height: 100%;
+  width: 20%;
 }
 
 /* Positioniere die Zellen entlang des Randes */
@@ -215,10 +290,22 @@ p {
 }
 /* Hintergrundbild für die Zellen 8, 13, 23 und 37 festlegen */
 .cell:nth-child(8),
-.cell:nth-child(13),
-.cell:nth-child(23),
-.cell:nth-child(37) {
+
+.cell:nth-child(23){
     background-image: url('./assets/_-removebg-preview.png'); /* Pfad zu deinem Bild */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.cell:nth-child(13) {
+    background-image: url('./assets/left-removebg-preview.png'); /* Pfad zu deinem Bild */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.cell:nth-child(37) {
+    background-image: url('./assets/right-removebg-preview.png'); /* Pfad zu deinem Bild */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -245,85 +332,16 @@ p {
     background-position: center;
     background-repeat: no-repeat;
 }
-/* Zentrale div */
-.center {
-    grid-area: 2 / 2 / 11 / 11;
-    background-color: blue;
-    border: 2px solid #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.cell:nth-child(36) {
+    background-image: url('./assets/bahnhofright-removebg-preview.png'); /* Pfad zu deinem Bild */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-.center-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    animation: fadeIn 2s forwards;
-}
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
-}
 
-/* Würfel-Styles */
-.dice {
-    position: absolute;
-    font-size: 150px;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-}
 
-@keyframes throwDice {
-    0% {
-        top: 0;
-        left: 50%;
-        opacity: 1;
-    }
-    100% {
-        top: 80vh; /* Fällt bis 80% der Viewport-Höhe */
-        left: calc(50% + var(--dice-offset, 0px));
-        opacity: 1;
-    }
-}
-.game-button {
-    font-size: 16px; /* Beispiel: Schriftgröße */
-    color: white; /* Beispiel: Textfarbe */
-    background-color: #4CAF50; /* Beispiel: Hintergrundfarbe */
-    border: none; /* Beispiel: Kein Rahmen */
-    padding: 10px 20px; /* Beispiel: Innenabstand */
-    text-align: center; /* Beispiel: Textausrichtung */
-    text-decoration: none; /* Beispiel: Kein Textdekor */
-    display: inline-block; /* Beispiel: Inline-Block-Element */
-    margin: 4px 2px; /* Beispiel: Außenabstand */
-    cursor: pointer; /* Beispiel: Mauszeiger */
-    border-radius: 12px; /* Beispiel: Abgerundete Ecken */
-    transition: background-color 0.3s; /* Beispiel: Übergangseffekt */
-  }
-  
-  .game-button:hover {
-    background-color: #45a049; /* Beispiel: Hintergrundfarbe beim Hover */
-  }
-#diceResult {
-    font-size: 20px; /* Beispiel: Schriftgröße auf 20px setzen */
-    color: red; /* Beispiel: Textfarbe auf rot setzen */
-    font-weight: bold; /* Beispiel: Text fett darstellen */
-    margin: 10px 0; /* Beispiel: Abstand nach oben und unten */
-    padding: 5px; /* Beispiel: Innenabstand */
-    border: 2px solid black; /* Beispiel: Rahmen hinzufügen */
-    border-radius: 5px; /* Beispiel: Abgerundete Ecken */
-    background-color: lightyellow; /* Beispiel: Hintergrundfarbe */
-}
 
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
-}
 
 
 

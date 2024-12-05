@@ -95,43 +95,6 @@ function updatePlayerPosition(player) {
   }
 }
 
-// Gefängnislogik hinzufügen
-function handleJail(player) {
-  alert("Du bist im Gefängnis!");
-  player.position = 10; // Auf Feld 11 (Besuch im Gefängnis) setzen
-  updatePlayerPosition(player); // Spielerposition aktualisieren
-  updatePlayerInfo();
-  document.getElementById('rollDice').disabled = true; // Würfeln deaktivieren
-  document.getElementById('buildHouse').disabled = true; // Hausbauen deaktivieren
-
-  // Spieler kann sich freikaufen oder versuchen, einen Pasch zu würfeln
-  const outOfJail = setInterval(() => {
-    if (confirm("Pasch würfeln oder 50$ bezahlen, um rauszukommen?")) {
-      const roll1 = Math.floor(Math.random() * 6) + 1;
-      const roll2 = Math.floor(Math.random() * 6) + 1;
-      if (roll1 === roll2) {
-        alert("Du hast einen Pasch gewürfelt und bist frei!");
-        document.getElementById('rollDice').disabled = false;
-        document.getElementById('buildHouse').disabled = false;
-        clearInterval(outOfJail);
-      } else {
-        alert("Kein Pasch! Du bleibst im Gefängnis.");
-      }
-    } else {
-      if (player.money >= 50) {
-        alert("50$ bezahlt, du bist frei!");
-        player.money -= 50;
-        document.getElementById('rollDice').disabled = false;
-        document.getElementById('buildHouse').disabled = false;
-        updatePlayerInfo();
-        clearInterval(outOfJail);
-      } else {
-        alert("Nicht genug Geld, du bleibst im Gefängnis!");
-      }
-    }
-  }, 1000);
-}
-
 function movePlayer(steps) {
   const player = players[currentPlayerIndex];
   player.position = (player.position + steps + totalFields) % totalFields; // Neue Position berechnen
