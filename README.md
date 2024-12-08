@@ -10,3 +10,6 @@ In this Project i worked with:
 HTML, CSS and Javascript.
 
 Please feel free to get in contact for some nice words or any Tippś i can use to work on it in future.
+
+![image](https://github.com/user-attachments/assets/ce8fd182-33a1-4519-9f9a-7171ec6f5c64)
+
