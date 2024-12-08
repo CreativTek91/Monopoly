@@ -7,13 +7,13 @@ const playerInfo = document.getElementById("playerInfo");
 const playerToken = document.getElementById("player");
 
 
-const totalFields = 40; // Anzahl der Spielfelder
 const players = [
   { id: 1, money: 1500, position: 0, properties: [] },
   { id: 2, money: 1500, position: 0, properties: [] },
 ];
-let currentPlayerIndex = 0; // Startspieler
 
+const totalFields = 40; // Anzahl der Spielfelder
+let currentPlayerIndex = 0; // Startspieler
 const fields = Array.from({ length: totalFields }, (_, i) => ({
   owner: null,
   houses: 0,
@@ -39,14 +39,13 @@ function rollDice() {
   const diceResult = document.getElementById("diceResult");
   diceResult.textContent = `Würfel 1: ${dice1}, Würfel 2: ${dice2}, Gesamt: ${totalRoll}`;
 
-  // // Beispiel: Weitere Bearbeitungen des diceResult-Elements
-  diceResult.style.fontSize = "24px"; // Schriftgröße auf 24px setzen
-  diceResult.style.color = "blue"; // Textfarbe auf blau setzen
-  diceResult.style.fontWeight = "bold"; // Text fett darstellen
-  diceResult.style.backgroundColor = "lightgreen"; // Hintergrundfarbe auf hellgrün setzen
-  diceResult.style.padding = "10px"; // Innenabstand auf 10px setzen
-  diceResult.style.border = "2px solid black"; // Rahmen hinzufügen
-  diceResult.style.borderRadius = "10px"; // Abgerundete Ecken
+  diceResult.style.fontSize = "24px"; 
+  diceResult.style.color = "blue"; 
+  diceResult.style.fontWeight = "bold"; 
+  diceResult.style.backgroundColor = "lightgreen"; 
+  diceResult.style.padding = "10px"; 
+  diceResult.style.border = "2px solid black"; 
+  diceResult.style.borderRadius = "10px"; 
   movePlayer(totalRoll);
   animateDice(dice1, dice2);
 }
@@ -54,14 +53,14 @@ function animateDice(dice1, dice2) {
   const dice1Element = document.getElementById('dice1');
   const dice2Element = document.getElementById('dice2');
 
-  dice1Element.style.setProperty('--dice-offset', '-50px');
+  dice1Element.style.setProperty('--dice-offset', '-50px');//Für das Element dice2Element wird die Variable --dice-offset auf 50px gesetzt
   dice2Element.style.setProperty('--dice-offset', '50px');
 
   dice1Element.style.animation = 'throwDice 1s forwards';
   dice2Element.style.animation = 'throwDice 1s forwards';
 
   setTimeout(() => {
-      dice1Element.style.animation = '';
+      dice1Element.style.animation = ''; //Animation eigenschaft wird für beide Elemente auf einen leeren String gesetzt.
       dice2Element.style.animation = '';
   }, 1000);
 }
@@ -101,13 +100,13 @@ function movePlayer(steps) {
   const field = fields[player.position]; // Aktuelles Feld
 
   // Überprüfen, ob der Spieler auf Zelle 31 landet
-  if (player.position === 30) { // Zelle 31 hat den Index 30 (0-basiert)
+  if (player.position === 31) { // Zelle 31 hat den Index 30 (0-basiert)
     alert("Du bist auf Zelle 31 gelandet und ziehst auf Zelle 11!");
     player.position = 10; // Zelle 11 hat den Index 10 (0-basiert)
   }
 
   // Überprüfen, ob der Spieler ins Gefängnis muss
-  if (player.position === 30) { // Beispiel: Zelle 31 schickt den Spieler ins Gefängnis
+  if (player.position === 31) { // Beispiel: Zelle 31 schickt den Spieler ins Gefängnis
     handleJail(player);
     return; // Beende die Funktion, da der Spieler ins Gefängnis geht
   }
@@ -156,8 +155,8 @@ function moveTokenToField(fieldIndex) {
 
 // Hausbau-Funktion
 function buildHouse() {
-  const player = players[currentPlayerIndex];
-  const field = fields[player.position];
+  const player = players[currentPlayerIndex]; // lokal
+  const field = fields[player.position]; //lokal
   if (field.owner === player.id && field.houses < 4) {
     const housePrice = 50; // Beispiel: Hausbau kostet 50$
     if (player.money >= housePrice) {
@@ -190,13 +189,12 @@ function updateField(position, text) {
 
 // Funktion zum Anwenden von Stilen auf das Spielerinfo-Element
 function applyPlayerInfoStyles(element) {
-  element.style.fontSize = "20px"; // Beispiel: Schriftgröße auf 20px setzen
+  element.style.fontSize = "20px"; //
   element.style.background = "linear-gradient(to right, purple, orange)";
   element.style.border = "2px solid black";
   element.style.borderRadius = "8px";
-  element.style.boxShadow = "3px 3px 5px rgba(0, 0, 0, 0.5)"; // Beispiel: Box-Shadow hinzufügen
-  element.style.fontWeight = "bold"; // Beispiel: Text fett darstellen
-  element.style.margin = "10px 0"; // Beispiel: Abstand nach oben und unten
+  element.style.boxShadow = "3px 3px 5px rgba(0, 0, 0, 0.5)"; 
+  element.style.margin = "10px 0"; 
 }
 
 // Spielerinformationen anzeigen
@@ -212,7 +210,7 @@ function switchPlayer() {
 }
 
 // Event Listener
-document.getElementById('rollDice').addEventListener('click', rollDice);
+document.getElementById('rollDice').addEventListener('click', rollDice); // ruft die rollDice function auf sobald der button gegeklickt wurde
 document.getElementById('buildHouse').addEventListener('click', buildHouse);
 
 
